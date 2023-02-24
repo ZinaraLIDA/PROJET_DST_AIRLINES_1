@@ -1,0 +1,14 @@
+FROM debian:latest
+RUN apt-get update && apt-get install python3-pip -y && pip3 install numpy && pip3 install pandas && pip3 install dash && pip3 install requests
+ADD apiDash.py /src/apiDash.py
+ADD layoutDash.py /src/layoutDash.py
+ADD moduleDash.py /src/moduleDash.py
+ADD assets/apiDash.css /src/assets/apiDash.css
+ADD assets/style.css /src/assets/style.css
+ADD assets/wallpaper_index.jpg /src/assets/wallpaper_index.jpg
+ADD assets/wallpaper_index.jpg /src/assets/wallpaper_index2.jpg
+ADD assets/wallpaper_stats.jpg /src/assets/wallpaper_stats.jpg
+WORKDIR /src/
+EXPOSE 5010
+VOLUME ./config:/src/config
+CMD python3 apiDash.py

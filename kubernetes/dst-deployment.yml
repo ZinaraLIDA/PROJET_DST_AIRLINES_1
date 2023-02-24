@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dst-deployment
+  labels:
+    app: dst-airlines
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dst-airlines
+  template:
+    metadata:
+      labels:
+        app: dst-airlines
+    spec:
+      containers:
+      - name: api-mongo
+        image: pym393/dst_api_mongo:latest
+        ports:
+        - containerPort: 5001
+        env:
+        - name: MONGO_SERVER
+          value: "host.minikube.internal"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_user
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_password
+        - name: MONGO_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_dbname
+        - name: MONGO_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: api_mongo_key
+      - name: api-mysql
+        image: pym393/dst_api_mysql:latest
+        ports:
+        - containerPort: 5002
+        env:
+        - name: MONGO_SERVER
+          value: "host.minikube.internal"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_user
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_password
+        - name: MONGO_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_mongo_dbname
+        - name: MONGO_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: api_mongo_key
+        - name: MYSQL_SERVER
+          value: "host.minikube.internal"
+        - name: MYSQL_PORT
+          value: "3306"
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_sql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_sql_password
+        - name: MYSQL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: db_sql_dbname
+        - name: MYSQL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: api_sql_key
+      - name: api-dash
+        image: pym393/dst_api_dash:latest
+        ports:
+        - containerPort: 5010
+        env:
+        - name: API_MONGO_URL
+          value: "http://127.0.0.1:5001"
+        - name: API_MYSQL_URL
+          value: "http://127.0.0.1:5002"
+        - name: MONGO_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: api_mongo_key
+        - name: MYSQL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: api_sql_key
+        - name: DEP_IATA
+          valueFrom:
+            secretKeyRef:
+              name: dst-secret
+              key: dep_iata

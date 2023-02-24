@@ -1,0 +1,132 @@
+h1 {
+    color:white;
+    text-align: center;
+    font-size: 28pt;
+}
+
+.button {
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    background-color: gray;
+    border: 3px solid #403c3d;
+}
+.button:hover {
+    background-color: gray;
+    border: 3px solid #ad2b4c;
+}
+
+.textButton {
+    color: white;
+    font-size: 12pt;
+    text-decoration: none;
+}
+.textButton:hover {
+    color: #5b1124;
+    text-decoration: none;
+}
+
+.button2 {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    background-color: #1e4b6b;
+    border: 3px solid #b5c0cf;
+}
+.button2:hover {
+    background-color: #1e4b6b;
+    border: 3px solid #ad2b4c;
+}
+.textButton2 {
+    color: white;
+    font-size: 10pt;
+    text-decoration: none;
+}
+.textButton2:hover {
+    color: #c89ea9;
+    text-decoration: none;
+}
+
+body {
+    text-align: center;
+}
+
+#divIndex {
+    background-image: url('./wallpaper_index.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 96vh;
+    width: 98vw;
+    overflow-x: none;
+}
+
+#divStats {
+    background-image: url('./wallpaper_stats.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 96vh;
+    width: 98vw;
+    overflow-x: none;
+}
+
+#divFlights {
+    background-image: url('./wallpaper_index2.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 96vh;
+    width: 98vw;
+    overflow-x: none;
+}
+
+.dropdown {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 14pt;
+}
+
+.labelDropdown {
+    background-color: #1e4b6b;
+    color: white;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*'alignItems': 'center'*/
+
+.DateRangePickerInput {
+    background-color: #cfcfcf;
+    color: white;
+    height:30px;
+}
+
+.DateInput_input{
+    background-color: #1e4b6b;
+    color: white;
+    font-size: 10pt;
+    text-align: center;
+    height:30px;
+}
+
+.graph_stat {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: blue;
+}
+
+#row_limit {
+    width: 60px;
+    color: black;
+    font-size: 10pt;
+    text-align: center;
+    background-color: #d0cccc}
+
+#df_sort {
+    width: 200px;
+    color: black;
+    font-size: 10pt;
+    text-align: center;
+    background-color: #d0cccc}
+

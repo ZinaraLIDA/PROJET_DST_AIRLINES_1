@@ -1,0 +1,8 @@
+# Build des images pour minikube
+docker image build ../src/apiMongo -f ./Dockerfile_apiMongo_mk -t pym393/dst_api_mongo:latest
+docker image build ../src/apiSql -f ./Dockerfile_apiSql_mk -t pym393/dst_api_mysql:latest
+docker image build ../src/apiDash -f ./Dockerfile_apiDash_mk -t pym393/dst_api_dash:latest
+docker image push pym393/dst_api_mongo:latest
+docker image push pym393/dst_api_mysql:latest
+docker image push pym393/dst_api_dash:latest
+

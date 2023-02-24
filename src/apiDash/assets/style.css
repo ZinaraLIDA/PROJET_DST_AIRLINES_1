@@ -1,0 +1,13 @@
+ 
+#part1 {
+    width:100%;
+  }
+
+#part1 #depart {
+    float:left;
+    width:50%;
+}
+#part1 #destination {
+    margin-left:50%   
+}
+

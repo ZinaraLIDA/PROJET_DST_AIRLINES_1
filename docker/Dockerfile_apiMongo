@@ -1,0 +1,7 @@
+FROM debian:latest
+RUN apt-get update && apt-get install python3-pip -y && pip3 install Flask && pip3 install Flask-Pydantic && pip3 install pymongo && pip3 install numpy
+ADD apiMongo.py /src/apiMongo.py
+WORKDIR /src/
+EXPOSE 5001
+VOLUME ./config:/src/config
+CMD python3 apiMongo.py

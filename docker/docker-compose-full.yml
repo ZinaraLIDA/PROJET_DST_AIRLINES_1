@@ -1,0 +1,93 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    networks:
+      - network_dst
+    volumes:
+    - ./mongo_data:/data/db
+    ports:
+    - 27017:27017
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=admin
+    - MONGO_INITDB_ROOT_PASSWORD=baray
+    healthcheck:
+        test: sleep 1
+        interval: 1s
+        timeout: 2s
+        retries: 10    
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    networks:
+      - network_dst
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=DSTAirline
+      - MYSQL_ROOT_PASSWORD=baray
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./mysql_data/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+        test: sleep 1
+        interval: 1s
+        timeout: 2s
+        retries: 10    
+  api_mongo:
+    image: api_mongo:latest
+    build:
+      context: ../src/apiMongo
+      dockerfile: ../../docker/Dockerfile_apiMongo
+    container_name: api_mongo
+    networks:
+      - network_dst
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - ./config:/src/config
+    ports:
+    - 5001:5001
+  api_sql:
+    image: api_sql:latest
+    build:
+      context: ../src/apiSql
+      dockerfile: ../../docker/Dockerfile_apiSql
+    container_name: api_sql
+    networks:
+      - network_dst
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    volumes:
+        - ./config:/src/config
+    ports:
+      - 5002:5002
+  api_dash:
+    image: api_dash:latest
+    build:
+      context: ../src/apiDash
+      dockerfile: ../../docker/Dockerfile_apiDash
+    container_name: api_dash
+    networks:
+      - network_dst
+    depends_on:
+      api_mongo:
+        condition: service_started
+      api_sql:
+        condition: service_started
+    volumes:
+      - ./config:/src/config
+    ports:
+    - 5010:5010
+
+networks:
+  network_dst:
+  

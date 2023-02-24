@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+    - ./mongo_data:/data/db
+    ports:
+    - 27017:27017
+    expose:
+      - 27017
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=admin
+    - MONGO_INITDB_ROOT_PASSWORD=baray
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=DSTAirline
+      - MYSQL_ROOT_PASSWORD=baray
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  
